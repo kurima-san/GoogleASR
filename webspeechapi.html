@@ -3,31 +3,43 @@
  
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web Speech API</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+    <link href="style.css" rel="stylesheet">
+    
     <script>
         var flag_speech = 0;
- 
-        function vr_function() {
+        var flag_start = false;
+        
+        function asr_start_function() {
+            flag_start = true;
             window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
             var recognition = new webkitSpeechRecognition();
             recognition.lang = 'ja';
             recognition.interimResults = true;
             recognition.continuous = true;
  
+            
             recognition.onsoundstart = function() {
-                document.getElementById('status').innerHTML = "認識中";
+                document.getElementById('messageArea').innerHTML = "認識中";
             };
             recognition.onnomatch = function() {
-                document.getElementById('status').innerHTML = "もう一度試してください";
+                document.getElementById('messageArea').innerHTML = "もう一度試してください";
             };
             recognition.onerror = function() {
-                document.getElementById('status').innerHTML = "エラー";
-                if(flag_speech == 0)
+                document.getElementById('messageArea').innerHTML = "エラー";
+                if(flag_speech == 0 && flag_start)
                   vr_function();
             };
             recognition.onsoundend = function() {
-                document.getElementById('status').innerHTML = "停止中";
-                  vr_function();
+                document.getElementById('messageArea').innerHTML = "停止中";
+                if(flag_start)vr_function();
             };
  
             recognition.onresult = function(event) {
@@ -37,33 +49,85 @@
                     {
                         var confidence = results[i][0].confidence;
                         console.log( "result: "+results[i][0].transcript + "\nconfidence: " + confidence);
-                        document.getElementById('result_text').innerHTML = results[i][0].transcript+"(confidence:"+confidence+")";
-                        vr_function();
+                        document.getElementById('recognitionText').innerHTML = "[final] " + results[i][0].transcript+"(confidence:"+confidence+")";
+                        document.getElementById('recognitionText').removeClass('isNotFinal');
+                        if(flag_start)vr_function();
                         
                     }
                     else
                     {
                         console.log( "interimresult: "+results[i][0].transcript);
-                        document.getElementById('result_text').innerHTML = "[途中経過] " + results[i][0].transcript;
+                        document.getElementById('recognitionText').innerHTML = "[interim] " + results[i][0].transcript;
+                        document.getElementById('recognitionText').addClass('isNotFinal');
                         flag_speech = 1;
                     }
                 }
             }
+            
             flag_speech = 0;
-            document.getElementById('status').innerHTML = "start";
+            document.getElementById('messageArea').innerHTML = "start";
             recognition.start();
+            recognitionFormControl(true);
         }
+        
+        function asr_stop_function() {
+          flag_start = false;
+          recognitionFormControl(false);
+        }
+        
+        function recognitionFormControl(start){
+          if(start){
+            document.getElementById('recognitionStartButton').attr('disabled','true');
+            document.getElementById('recognitionStopButton').attr('disabled','false');
+            document.getElementById('recognitionStopButton').removeAttr('disabled');
+          }else{
+            document.getElementById('recognitionStopButton').attr('disabled','true');
+            document.getElementById('recognitionStartButton').attr('disabled','false');
+            document.getElementById('recognitionStartButton').removeAttr('disabled');
+          }
+        }
+        
     </script> 
 </head>
  
 <body>
-    <textarea id="result_text" cols="100" rows="10">
+<!--
+    <textarea id="recognitionText" cols="100" rows="10">
     </textarea>
     <br>
     <textarea id="status" cols="100" rows="1">
     </textarea>
     <br>
     <input type="button" onClick="vr_function();" value="音認開始">
+-->
+  <div class="contents">
+    <div class="container">
+
+<div class="recognition">
+  <div class="row">
+    <div class="col-sm-8">
+      <textarea id="recognitionText" type="text" class="form-control pull-left" placeholder="ここに音声認識結果が表示されます"></textarea>
+    </div>
+    <div class="col-sm-4">
+      <button id="recognitionStartButton" class="btn btn-default" type="button" value="recognitionStart"  onClick="asr_start_function();">話してみる <i class="fa fa-microphone fa-fw"></i>
+      </button>
+      <button id="recognitionStopButton" class="btn btn-default" type="button" value="recognitionStop"  onClick="asr_stop_function();">話すの中断 <i class="fa fa-microphone-slash fa-fw"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="message">
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="messageArea"></div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
 </body>
  
 </html>

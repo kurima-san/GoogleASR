@@ -111,12 +111,12 @@
             flag_speech = 0;
             document.getElementById('messageArea').innerHTML = "start";
             recognition.start();
-            recognitionFormControl(false);
+            recognitionFormControl(true);
         }
         
         function asr_stop_function() {
           flag_start = false;
-          recognitionFormControl(true);
+          recognitionFormControl(false);
         }
         
         function recognitionFormControl(start){

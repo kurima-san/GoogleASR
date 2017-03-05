@@ -120,6 +120,7 @@
         
         function asr_stop_function() {
           recognition.stop();
+          document.getElementById('messageArea').innerHTML = "stop";
           flag_start = false;
           recognitionFormControl(false);
         }

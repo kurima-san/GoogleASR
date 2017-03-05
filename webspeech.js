@@ -57,9 +57,11 @@ var shouldFinish = true;
     $('#messageArea').html("<p>state: end</p>");
     recognitionFormControl(false);
     
+    /*
     if(shouldFinish==false){
         document.getElementById('recognitionStartButton').click();
     }
+    */
   };
 
   recognition.onspeechstart = function(){

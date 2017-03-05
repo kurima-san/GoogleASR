@@ -67,12 +67,12 @@
             flag_speech = 0;
             document.getElementById('messageArea').innerHTML = "start";
             recognition.start();
-            recognitionFormControl(true);
+            recognitionFormControl(false);
         }
         
         function asr_stop_function() {
           flag_start = false;
-          recognitionFormControl(false);
+          recognitionFormControl(true);
         }
         
         function recognitionFormControl(start){
@@ -103,27 +103,27 @@
   <div class="contents">
     <div class="container">
 
-<div class="recognition">
-  <div class="row">
-    <div class="col-sm-8">
-      <textarea id="recognitionText" type="text" class="form-control pull-left" placeholder="ここに音声認識結果が表示されます"></textarea>
-    </div>
-    <div class="col-sm-4">
-      <button id="recognitionStartButton" class="btn btn-default" type="button" value="recognitionStart"  onClick="asr_start_function();">話してみる <i class="fa fa-microphone fa-fw"></i>
-      </button>
-      <button id="recognitionStopButton" class="btn btn-default" type="button" value="recognitionStop"  onClick="asr_stop_function();">話すの中断 <i class="fa fa-microphone-slash fa-fw"></i>
-      </button>
-    </div>
-  </div>
-</div>
+	<div class="recognition">
+	  <div class="row">
+	    <div class="col-sm-8">
+	      <textarea id="recognitionText" type="text" class="form-control pull-left" placeholder="ここに音声認識結果が表示されます"></textarea>
+	    </div>
+	    <div class="col-sm-4">
+	      <button id="recognitionStartButton" class="btn btn-default" type="button" value="recognitionStart"  onClick="asr_start_function();">話してみる <i class="fa fa-microphone fa-fw"></i>
+	      </button>
+	      <button id="recognitionStopButton" class="btn btn-default" type="button" value="recognitionStop"  onClick="asr_stop_function();">話すの中断 <i class="fa fa-microphone-slash fa-fw"></i>
+	      </button>
+	    </div>
+	  </div>
+	</div>
 
-<div class="message">
-  <div class="row">
-    <div class="col-sm-12">
-      <div id="messageArea"></div>
-    </div>
-  </div>
-</div>
+	<div class="message">
+	  <div class="row">
+	    <div class="col-sm-12">
+	      <div id="messageArea"></div>
+	    </div>
+	  </div>
+	</div>
 
   </div>
 </div>

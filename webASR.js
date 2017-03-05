@@ -1,35 +1,6 @@
 var shouldFinish = true;
 var recognition = new webkitSpeechRecognition();
 
-function asr_start_function(){
-  recognition = new webkitSpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognitionFormControl(true);
-  recognition.lang = $('#selectLang').val();
-  
-  shouldFinish = false;
-  recognition.start();
-}
-
-function asr_stop_function(){
-  recognitionFormControl(false);
-  shouldFinish = true;
-  recognition.stop();
-}
-
-function recognitionFormControl(start){
-  if(start){
-    $('#recognitionStartButton').attr('disabled','true');
-    $('#recognitionStopButton').attr('disabled','false');
-    $('#recognitionStopButton').removeAttr('disabled');
-  }else{
-    $('#recognitionStopButton').attr('disabled','true');
-    $('#recognitionStartButton').attr('disabled','false');
-    $('#recognitionStartButton').removeAttr('disabled');
-  }
-}
-
 ;(function(d,$){//maybe for events
   
   //Speech Synthesis
@@ -119,6 +90,39 @@ function recognitionFormControl(start){
       }
     }
   };
+
+
+//functions
+
+  function asr_start_function(){
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognitionFormControl(true);
+    recognition.lang = $('#selectLang').val();
+    
+    shouldFinish = false;
+    recognition.start();
+  }
+
+  function asr_stop_function(){
+    recognitionFormControl(false);
+    shouldFinish = true;
+    recognition.stop();
+  }
+
+  function recognitionFormControl(start){
+    if(start){
+      $('#recognitionStartButton').attr('disabled','true');
+      $('#recognitionStopButton').attr('disabled','false');
+      $('#recognitionStopButton').removeAttr('disabled');
+    }else{
+      $('#recognitionStopButton').attr('disabled','true');
+      $('#recognitionStartButton').attr('disabled','false');
+      $('#recognitionStartButton').removeAttr('disabled');
+    }
+  }
+
 
 
 })(document,jQuery);

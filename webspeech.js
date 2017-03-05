@@ -1,4 +1,4 @@
-
+var shouldFinish = true;
 
 ;(function(d,$){
   //Speech Synthesis
@@ -37,13 +37,15 @@
   $('#recognitionStartButton').click(function(){
     recognitionFormControl(true);
     recognition.lang = $('#selectLang').val();
-
+    
+    shouldFinish = false;
     recognition.start();
   });
 
   $('#recognitionStopButton').click(function(){
     recognitionFormControl(false);
-
+    
+    shouldFinish = true;
     recognition.stop();
   });
 
@@ -54,6 +56,10 @@
   recognition.onend = function(){
     $('#messageArea').html("<p>state: end</p>");
     recognitionFormControl(false);
+    
+    if(shouldFinish==false){
+        document.getElementById('recognitionStartButton').click();
+    }
   };
 
   recognition.onspeechstart = function(){
@@ -73,6 +79,7 @@
     recognitionFormControl(false);
   };
 
+
   recognition.onresult = function(e){
     var results = e.results;
     for(var i = e.resultIndex; i<results.length; i++){
@@ -83,9 +90,11 @@
           "<p>state: onresult<br>" +
           "confidence: " + confidence + "</p>"
           );
+          console.log( results[i][0]+"<p>state: onresult<br>" + "confidence: " + confidence + "</p>");
 
       }else{
         $('#recognitionText').val(results[i][0].transcript).addClass('isNotFinal');
+        console.log( results[i][0]);
       }
     }
   };

@@ -78,13 +78,13 @@
         
         function recognitionFormControl(start){
           if(start){
-            document.getElementById('recognitionStartButton').attr('disabled','true');
-            document.getElementById('recognitionStopButton').attr('disabled','false');
-            document.getElementById('recognitionStopButton').removeAttr('disabled');
+            document.getElementById('recognitionStartButton').setAttribute('disabled','true');
+            document.getElementById('recognitionStopButton').setAttribute('disabled','false');
+            document.getElementById('recognitionStopButton').removeAttribute('disabled');
           }else{
-            document.getElementById('recognitionStopButton').attr('disabled','true');
-            document.getElementById('recognitionStartButton').attr('disabled','false');
-            document.getElementById('recognitionStartButton').removeAttr('disabled');
+            document.getElementById('recognitionStopButton').setAttribute('disabled','true');
+            document.getElementById('recognitionStartButton').setAttribute('disabled','false');
+            document.getElementById('recognitionStartButton').removeAttribute('disabled');
           }
         }
         

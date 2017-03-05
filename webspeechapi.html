@@ -60,11 +60,13 @@
         var flag_speech = 0;
         var flag_start = false;
         recognitionFormControl(false);
+        var recognition = new webkitSpeechRecognition();
         
         function asr_start_function() {
             flag_start = true;
             window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-            var recognition = new webkitSpeechRecognition();
+            //var recognition = new webkitSpeechRecognition();
+            recognition = new webkitSpeechRecognition();
             recognition.lang = 'ja';
             recognition.interimResults = true;
             recognition.continuous = true;
@@ -107,7 +109,7 @@
                     }
                 }
                 
-                if(!flag_start)recognition.stop();
+                //if(!flag_start)recognition.stop();
             }
             
             flag_speech = 0;
@@ -117,6 +119,7 @@
         }
         
         function asr_stop_function() {
+          recognition.stop();
           flag_start = false;
           recognitionFormControl(false);
         }

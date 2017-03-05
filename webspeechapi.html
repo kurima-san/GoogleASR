@@ -94,7 +94,7 @@
                         var confidence = results[i][0].confidence;
                         console.log( "result: "+results[i][0].transcript + "\nconfidence: " + confidence);
                         document.getElementById('recognitionText').innerHTML = "[final] " + results[i][0].transcript+"(confidence:"+confidence+")";
-                        document.getElementById('recognitionText').removeClass('isNotFinal');
+                        document.getElementById('recognitionText').classList.remove('isNotFinal');
                         if(flag_start)vr_function();
                         
                     }
@@ -102,7 +102,7 @@
                     {
                         console.log( "interimresult: "+results[i][0].transcript);
                         document.getElementById('recognitionText').innerHTML = "[interim] " + results[i][0].transcript;
-                        document.getElementById('recognitionText').addClass('isNotFinal');
+                        document.getElementById('recognitionText').classList.add('isNotFinal');
                         flag_speech = 1;
                     }
                 }

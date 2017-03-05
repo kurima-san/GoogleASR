@@ -90,11 +90,11 @@ var shouldFinish = true;
           "<p>state: onresult<br>" +
           "confidence: " + confidence + "</p>"
           );
-          console.log( results[i][0]+"<p>state: onresult<br>" + "confidence: " + confidence + "</p>");
+          console.log( "result: "+results[i][0].transcript + "\nconfidence: " + confidence);
 
       }else{
         $('#recognitionText').val(results[i][0].transcript).addClass('isNotFinal');
-        console.log( results[i][0]);
+        console.log( "interimresult: "+results[i][0].transcript);
       }
     }
   };

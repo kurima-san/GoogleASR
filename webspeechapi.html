@@ -79,11 +79,11 @@
             recognition.onerror = function() {
                 document.getElementById('messageArea').innerHTML = "エラー";
                 if(flag_speech == 0 && flag_start)
-                  vr_function();
+                  asr_start_function();
             };
             recognition.onsoundend = function() {
                 document.getElementById('messageArea').innerHTML = "停止中";
-                if(flag_start)vr_function();
+                if(flag_start)asr_start_function();
             };
  
             recognition.onresult = function(event) {
@@ -95,7 +95,7 @@
                         console.log( "result: "+results[i][0].transcript + "\nconfidence: " + confidence);
                         document.getElementById('recognitionText').innerHTML = "[final] " + results[i][0].transcript+"(confidence:"+confidence+")";
                         document.getElementById('recognitionText').classList.remove('isNotFinal');
-                        if(flag_start)vr_function();
+                        if(flag_start)asr_start_function();
                         
                     }
                     else

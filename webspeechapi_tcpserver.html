@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			Web Speech API
+		</title>
+		<link rel="stylesheet" href=
+		"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link href=
+		"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+		rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<!--
+				<textarea id="recognitionText" cols="100" rows="10">
+				</textarea>
+				<br>
+				<textarea id="status" cols="100" rows="1">
+				</textarea>
+				<br>
+				<input type="button" onClick="vr_function();" value="音認開始">
+-->
+		<div class="contents">
+			<div class="container">
+				<div class="recognition">
+					<div class="row">
+						<div class="col-sm-8">
+							<textarea id="recognitionText" type="text" class=
+							"form-control pull-left" placeholder=
+							"ここに音声認識結果が表示されます"></textarea>
+						</div>
+						<div class="col-sm-4">
+							<button id="recognitionStartButton" class="btn btn-default" type=
+							"button" value="recognitionStart" onclick=
+							"asr_start_function();">話してみる</button> <button id=
+							"recognitionStopButton" class="btn btn-default" type="button"
+							value="recognitionStop" onclick=
+							"asr_stop_function();">話すの中断</button>
+						</div>
+					</div>
+				</div>
+				<div class="message">
+					<div class="row">
+						<div class="col-sm-12">
+							<div id="messageArea"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+								var flag_speech = 0;
+								var flag_start = false;
+								recognitionFormControl(false);
+								var recognition = new webkitSpeechRecognition();
+								
+								function asr_start_function() {
+												flag_start = true;
+												window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+												//var recognition = new webkitSpeechRecognition();
+												recognition = new webkitSpeechRecognition();
+												recognition.lang = 'ja';
+												recognition.interimResults = true;
+												recognition.continuous = true;
+
+												
+												recognition.onsoundstart = function() {
+																document.getElementById('messageArea').innerHTML = "認識中";
+												};
+												recognition.onnomatch = function() {
+																document.getElementById('messageArea').innerHTML = "もう一度試してください";
+												};
+												recognition.onerror = function() {
+																document.getElementById('messageArea').innerHTML = "エラー";
+																if(flag_speech == 0 && flag_start)
+																		asr_start_function();
+												};
+												recognition.onsoundend = function() {
+																document.getElementById('messageArea').innerHTML = "停止中";
+																if(flag_start)asr_start_function();
+												};
+
+												recognition.onresult = function(event) {
+																var results = event.results;
+																for (var i = event.resultIndex; i < results.length; i++) {
+																				if (results[i].isFinal)
+																				{
+																								var confidence = results[i][0].confidence;
+																								console.log( "result: "+results[i][0].transcript + "\nconfidence: " + confidence);
+																								document.getElementById('recognitionText').innerHTML = "[final] " + results[i][0].transcript+"(confidence:"+confidence+")";
+																								document.getElementById('recognitionText').classList.remove('isNotFinal');
+																								if(flag_start)asr_start_function();
+																								
+																				}
+																				else
+																				{
+																								console.log( "interimresult: "+results[i][0].transcript);
+																								document.getElementById('recognitionText').innerHTML = "[interim] " + results[i][0].transcript;
+																								document.getElementById('recognitionText').classList.add('isNotFinal');
+																								flag_speech = 1;
+																				}
+																}
+																
+																//if(!flag_start)recognition.stop();
+												}
+												
+												flag_speech = 0;
+												document.getElementById('messageArea').innerHTML = "start";
+												recognition.start();
+												recognitionFormControl(true);
+								}
+								
+								function asr_stop_function() {
+										recognition.stop();
+										document.getElementById('messageArea').innerHTML = "stop";
+										flag_start = false;
+										recognitionFormControl(false);
+								}
+								
+								function recognitionFormControl(start){
+										if(start){
+												document.getElementById('recognitionStartButton').setAttribute('disabled','true');
+												document.getElementById('recognitionStopButton').setAttribute('disabled','false');
+												document.getElementById('recognitionStopButton').removeAttribute('disabled');
+										}else{
+												document.getElementById('recognitionStopButton').setAttribute('disabled','true');
+												document.getElementById('recognitionStartButton').setAttribute('disabled','false');
+												document.getElementById('recognitionStartButton').removeAttribute('disabled');
+										}
+								}
+								
+								
+								///////////////////
+								var serverSocketId;
+
+								/**
+								* サーバ起動
+								*/
+								chrome.sockets.tcpServer.create({}, function(createInfo) {
+								// サーバ用のソケット
+								serverSocketId = createInfo.socketId;
+
+								// 3000番ポートをlisten
+								chrome.sockets.tcpServer.listen(serverSocketId, '0.0.0.0', 3000, function(resultCode) {
+										if (resultCode < 0) {
+												console.log("Error listening:" + chrome.runtime.lastError.message);
+										}
+								});
+								});
+
+								/**
+								* リクエスト用ソケット作成
+								*/
+								chrome.sockets.tcpServer.onAccept.addListener(function(info) {
+								if (info.socketId === serverSocketId) {
+										chrome.sockets.tcp.setPaused(info.clientSocketId, false);
+								}
+								});
+
+								/**
+								* リクエスト受信
+								*/
+								chrome.sockets.tcp.onReceive.addListener(function(info) {
+								console.log("Receive: ", info);
+
+								// リクエスト確認: ArrayBufferを文字列に変換
+								// 本来はヘッダの先頭と、Content-Length等からリクエストの範囲を検出し、
+								// 受信データからHTTPリクエストを取り出す必要がある
+								var requestText = ab2str(info.data);
+								console.log(requestText);
+
+								// レスポンス送信
+								var socketId = info.socketId;
+								var message = 'Hello world';
+								var responseText = [
+										' HTTP/1.1 200 OK',
+										'Content-Type: text/plain',
+										'Content-Length: ' + message.length,
+										'',
+										message
+								].join("\n");
+								chrome.sockets.tcp.send(socketId, str2ab(responseText), function(info) {
+										if (info.resultCode < 0) {
+												console.log("Error sending:" + chrome.runtime.lastError.message);
+										}
+
+										// ソケット破棄
+										chrome.sockets.tcp.disconnect(socketId);
+										chrome.sockets.tcp.close(socketId);
+								});
+								});
+
+								/**
+								* データ受信エラー
+								*/
+								chrome.sockets.tcp.onReceiveError.addListener(function(info) {
+								console.log("Error: ", info);
+								});
+
+								/**
+								* 文字列をArrayBufferに変換する(ASCIIコード専用)
+								*
+								* @param text
+								* @returns {ArrayBuffer}
+								*/
+								function str2ab(text) {
+								var typedArray = new Uint8Array(text.length);
+
+								for (var i = 0; i < typedArray.length; i++) {
+										typedArray[i] = text.charCodeAt(i);
+								}
+
+								return typedArray.buffer;
+								}
+
+								/**
+								* ArrayBufferを文字列に変換する(ASCIIコード専用)
+								*
+								* @param arrayBuffer
+								* @returns {string}
+								*/
+								function ab2str(arrayBuffer) {
+								var typedArray = new Uint8Array(arrayBuffer);
+								var text = '';
+
+								for (var i = 0; i < typedArray.length; i++) {
+										text += String.fromCharCode(typedArray[i]);
+								}
+
+								return text;
+								}
+								
+								//////////////////
+		</script>
+	</body>
+</html>

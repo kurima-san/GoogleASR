@@ -1,17 +1,12 @@
 console.log.protocol
 
-<startrecog>
-<stoprecog>
+<client -> server>
+start\n
+stop\n
 
-<startproc>
-<endproc>
+<server -> client>
 
-<nomatch>
-<error>
 
-<interim>string<confidence>%lf
-
-<result>string<confidence>%lf
-
+<>
 utf-8
 

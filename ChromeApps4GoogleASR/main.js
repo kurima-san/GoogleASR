@@ -86,10 +86,10 @@ function onAcceptCallback(tcpConnection, socketInfo) {
 				var info = "[" + socketInfo.peerAddress + ":"
 						+ socketInfo.peerPort + "] " + line;
 				log.output(info);
-				if(line == "startrecognition"){
+				if(line == "start"){
 					console.log("click recognitionStartButton");
 					wv.executeScript({code: "document.getElementById('recognitionStartButton').click()"});
-				}else if(line == "stoprecognition"){
+				}else if(line == "stop"){
 					console.log("click recognitionStopButton");
 					wv.executeScript({code: "document.getElementById('recognitionStopButton').click()"});
 				}else{

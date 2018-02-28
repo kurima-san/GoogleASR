@@ -72,6 +72,7 @@
 						
 						recognition.onsoundstart = function() {
 								document.getElementById('messageArea').innerHTML = "認識中";
+								console.log("startrecog");
 						};
 						recognition.onnomatch = function() {
 								document.getElementById('messageArea').innerHTML = "もう一度試してください";

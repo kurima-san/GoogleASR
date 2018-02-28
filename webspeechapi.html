@@ -72,7 +72,7 @@
 						
 						recognition.onsoundstart = function() {
 								document.getElementById('messageArea').innerHTML = "認識中";
-								console.log("startrecog");
+								console.log("startrecog:");
 						};
 						recognition.onnomatch = function() {
 								document.getElementById('messageArea').innerHTML = "もう一度試してください";
@@ -93,7 +93,7 @@
 										if (results[i].isFinal)
 										{
 												var confidence = results[i][0].confidence;
-												console.log( "result: "+results[i][0].transcript + "\nconfidence: " + confidence);
+												console.log( "result:"+results[i][0].transcript + "\nconfidence:" + confidence);
 												document.getElementById('recognitionText').innerHTML = "[final] " + results[i][0].transcript+"(confidence:"+confidence+")";
 												document.getElementById('recognitionText').classList.remove('isNotFinal');
 												if(flag_start)asr_start_function();
@@ -101,7 +101,7 @@
 										}
 										else
 										{
-												console.log( "interimresult: "+results[i][0].transcript);
+												console.log( "interimresult:"+results[i][0].transcript);
 												document.getElementById('recognitionText').innerHTML = "[interim] " + results[i][0].transcript;
 												document.getElementById('recognitionText').classList.add('isNotFinal');
 												flag_speech = 1;

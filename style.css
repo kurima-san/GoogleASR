@@ -38,8 +38,8 @@ body	{
 }
 
 #recognitionText {
-  height: 6em;
-  font-size: 1.4em;
+  height: 12em;
+  font-size: 1.0em;
 }
 
 #recognitionStartButton {

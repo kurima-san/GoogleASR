@@ -30,7 +30,7 @@
 				<div class="setting">
 					<div class="row">
 						<div class="col-sm-4">
-							<select id="selectLang" class="form-control pull-left">
+							<select id="selectLang" class="form-control pull-left" name="selectLang">
 								<option value="ja-JP">日本語</option>
 								<option value="en-US">English</option>
 							</select>
@@ -75,7 +75,10 @@
 						window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
 						//var recognition = new webkitSpeechRecognition();
 						recognition = new webkitSpeechRecognition();
-						recognition.lang = 'ja';
+						var num = document.selectLang.selectedIndex;
+						var selectLang = document.selectLang.options[num].value;
+						//recognition.lang = 'ja';
+						recognition.lang = selectLang;
 						recognition.interimResults = true;
 						recognition.continuous = true;
 

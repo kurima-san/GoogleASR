@@ -215,12 +215,16 @@
 			
 			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
+				var translatedForm = document.getElementByClassName('translated-ltr');
+				console.log(translatedForm.length);
+				/*
 				var skipTranslateFrame = document.getElementById('goog-gt-tt');
 				if(skipTranslateFrame != null){
 					console.log("Start translation");
 				} else {
 					console.log("Stop translation");
 				}
+				*/
 				/*
 				var selectItems = document.getElementById(':0.targetLanguage').getElementsByClassName('goog-te-combo');
 				if(selectItems.length > 0){

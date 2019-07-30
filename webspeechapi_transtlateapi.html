@@ -215,7 +215,7 @@
 			
 			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
-				var translatedForm = document.getElementByClassName('translated-ltr');
+				var translatedForm = document.getElementsByClassName('translated-ltr');
 				console.log(translatedForm.length);
 				/*
 				var skipTranslateFrame = document.getElementById('goog-gt-tt');

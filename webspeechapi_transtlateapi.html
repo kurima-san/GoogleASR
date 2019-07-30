@@ -216,10 +216,13 @@
 			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
 				
-				var num = document.getElementById('goog-te-combo').selectedIndex;
-				var selectLang = document.getElementById('goog-te-combo').options[num].value;
-				console.log("Start translation : "+selectLang);
-				
+				var num = document.getElementById("google_translate_element").innerHTML.getElementById('goog-te-combo').selectedIndex;
+				if(num > 0){
+					var selectLang = document.getElementById("google_translate_element").innerHTML.getElementById('goog-te-combo').options[num].value;
+					console.log("Start translation : "+selectLang);
+				} else {
+					console.log("not start translation");
+				}
 			}
 		 </script>
         

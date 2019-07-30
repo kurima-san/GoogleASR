@@ -77,7 +77,7 @@
 							<div id="google_translate_element"></div> 
 							<script type="text/javascript"> 
 								function googleTranslateElementInit() { 
-									new google.translate.TranslateElement({pageLanguage: 'ja'}, 'google_translate_element'); 
+									new google.translate.TranslateElement({pageLanguage: 'ja'}, 'google_translate_element');
 								} 
 							</script> 
 							<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
@@ -96,108 +96,114 @@
 		</div>
 		
 		<script>
-				var flag_speech = 0;
-				var flag_start = false;
-				recognitionFormControl(false);
-				var recognition = new webkitSpeechRecognition();
-				
-				function asr_start_function() {
-						flag_start = true;
-						window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-						//var recognition = new webkitSpeechRecognition();
-						recognition = new webkitSpeechRecognition();
-						var num = document.getElementById('selectLang').selectedIndex;
-						var selectLang = document.getElementById('selectLang').options[num].value;
-						//recognition.lang = 'ja';
-						//console.log(selectLang);
-						recognition.lang = selectLang;
-						recognition.interimResults = true;
-						recognition.continuous = true;
+			var flag_speech = 0;
+			var flag_start = false;
+			recognitionFormControl(false);
+			var recognition = new webkitSpeechRecognition();
+			
+			var rawText = "";
+			var confidenceLevel = -1;
+			
+			function asr_start_function() {
+					flag_start = true;
+					window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+					//var recognition = new webkitSpeechRecognition();
+					recognition = new webkitSpeechRecognition();
+					var num = document.getElementById('selectLang').selectedIndex;
+					var selectLang = document.getElementById('selectLang').options[num].value;
+					//recognition.lang = 'ja';
+					//console.log(selectLang);
+					recognition.lang = selectLang;
+					recognition.interimResults = true;
+					recognition.continuous = true;
 
-						
-						recognition.onsoundstart = function() {
-								document.getElementById('messageArea').innerHTML = "認識中";
-								console.log("startrecog:");
-						};
-						recognition.onnomatch = function() {
-								document.getElementById('messageArea').innerHTML = "もう一度試してください";
-						};
-						recognition.onerror = function() {
-								document.getElementById('messageArea').innerHTML = "エラー";
-								if(flag_speech == 0 && flag_start)
-									asr_start_function();
-						};
-						recognition.onsoundend = function() {
-								document.getElementById('messageArea').innerHTML = "停止中";
-								if(flag_start)asr_start_function();
-						};
+					
+					recognition.onsoundstart = function() {
+						document.getElementById('messageArea').innerHTML = "認識中";
+						console.log("startrecog:");
+					};
+					recognition.onnomatch = function() {
+						document.getElementById('messageArea').innerHTML = "もう一度試してください";
+					};
+					recognition.onerror = function() {
+						document.getElementById('messageArea').innerHTML = "エラー";
+						if(flag_speech == 0 && flag_start)
+							asr_start_function();
+					};
+					recognition.onsoundend = function() {
+						document.getElementById('messageArea').innerHTML = "停止中";
+						if(flag_start)asr_start_function();
+					};
 
-						recognition.onresult = function(event) {
-								var results = event.results;
-								for (var i = event.resultIndex; i < results.length; i++) {
-										if (results[i].isFinal)
-										{
-												var confidence = results[i][0].confidence;
-												console.log( "result:"+results[i][0].transcript + "\nconfidence:" + confidence);
-												document.getElementById('result type').innerHTML = "[final]";
-												document.getElementById('confidence').innerHTML = confidence;
-												document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
-												document.getElementById('recognitionText').classList.remove('isNotFinal');
-												if(flag_start)asr_start_function();
-												
-										}
-										else
-										{
-												console.log( "interimresult:"+results[i][0].transcript);
-												document.getElementById('result type').innerHTML = "[interim]";
-												document.getElementById('confidence').innerHTML = "-1";
-												document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
-												document.getElementById('recognitionText').classList.add('isNotFinal');
-												flag_speech = 1;
-										}
+					recognition.onresult = function(event) {
+						var results = event.results;
+						for (var i = event.resultIndex; i < results.length; i++) {
+								if (results[i].isFinal)
+								{
+									rawText = results[i][0].transcript;
+									confidenceLevel = results[i][0].confidence;
+									console.log( "result:"+rawText + "\nconfidence:" + confidenceLevel);
+									document.getElementById('result type').innerHTML = "[final]";
+									document.getElementById('confidence').innerHTML = confidence;
+									document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
+									document.getElementById('recognitionText').classList.remove('isNotFinal');
+									if(flag_start)asr_start_function();
+									
 								}
-								
-								//if(!flag_start)recognition.stop();
+								else
+								{
+									rawText = results[i][0].transcript;
+									confidenceLevel = -1;
+									
+									console.log( "interimresult:"+rawText);
+									document.getElementById('result type').innerHTML = "[interim]";
+									document.getElementById('confidence').innerHTML = "-1";
+									document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
+									document.getElementById('recognitionText').classList.add('isNotFinal');
+									flag_speech = 1;
+								}
 						}
 						
-						flag_speech = 0;
-						document.getElementById('messageArea').innerHTML = "start";
-						recognition.start();
-						recognitionFormControl(true);
-				}
-				
-				function asr_stop_function() {
-					recognition.stop();
-					document.getElementById('messageArea').innerHTML = "stop";
-					flag_start = false;
-					recognitionFormControl(false);
-				}
-				
-				function recognitionFormControl(start){
-					if(start){
-						document.getElementById('recognitionStartButton').setAttribute('disabled','true');
-						document.getElementById('recognitionStopButton').setAttribute('disabled','false');
-						document.getElementById('recognitionStopButton').removeAttribute('disabled');
-					}else{
-						document.getElementById('recognitionStopButton').setAttribute('disabled','true');
-						document.getElementById('recognitionStartButton').setAttribute('disabled','false');
-						document.getElementById('recognitionStartButton').removeAttribute('disabled');
+						//if(!flag_start)recognition.stop();
 					}
+					
+					flag_speech = 0;
+					document.getElementById('messageArea').innerHTML = "start";
+					recognition.start();
+					recognitionFormControl(true);
+			}
+			
+			function asr_stop_function() {
+				recognition.stop();
+				document.getElementById('messageArea').innerHTML = "stop";
+				flag_start = false;
+				recognitionFormControl(false);
+			}
+			
+			function recognitionFormControl(start){
+				if(start){
+					document.getElementById('recognitionStartButton').setAttribute('disabled','true');
+					document.getElementById('recognitionStopButton').setAttribute('disabled','false');
+					document.getElementById('recognitionStopButton').removeAttribute('disabled');
+				}else{
+					document.getElementById('recognitionStopButton').setAttribute('disabled','true');
+					document.getElementById('recognitionStartButton').setAttribute('disabled','false');
+					document.getElementById('recognitionStartButton').removeAttribute('disabled');
 				}
-				
-		</script>
-		
-		
-		<!--get translated results-->
-		<script type="text/javascript">
+			}
 			
-	           	 var origValue = document.getElementById("recognitionText").innerHTML;
-			
+	           	
 			document.getElementById("recognitionText").addEventListener("DOMSubtreeModified", translationCallback, false);
 			//document.getElementById("recognitionText").addEventListener("change", translationCallback, false);
 			function translationCallback() {
 				// This function needs to be called when Google translates this web page.
-				var currentValue = document.getElementById("recognitionText").innerHTML;
+				var currentHTML = document.getElementById("recognitionText").innerHTML;
+				var currentValue = document.getElementById("recognitionText").innerText;
+				if(currentHTML.indexOf('/font') != -1){
+					//
+				} else {
+					
+				}
 				console.log("Translated : " + currentValue);
 			}
 		 </script>

@@ -57,7 +57,7 @@
 							"ここに音声認識結果が表示されます" readonly></textarea>
 							-->
 							<fieldset>
-							<legend>認識結果1.4</legend>
+							<legend>認識結果1.5</legend>
 							<p><div id="result type"></div></p>
 							<p><div id="confidence"></div></p>
 							<p><div id="recognitionText"></div></p>
@@ -216,9 +216,9 @@
 			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
 				
-				var num = document.getElementById("google_translate_element").innerHTML.getElementById('goog-te-combo').selectedIndex;
+				var num = document.getElementById("google_translate_element").getElementById('goog-te-combo').selectedIndex;
 				if(num > 0){
-					var selectLang = document.getElementById("google_translate_element").innerHTML.getElementById('goog-te-combo').options[num].value;
+					var selectLang = document.getElementById("google_translate_element").getElementById('goog-te-combo').options[num].value;
 					console.log("Start translation : "+selectLang);
 				} else {
 					console.log("not start translation");

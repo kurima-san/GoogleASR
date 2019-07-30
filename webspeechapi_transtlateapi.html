@@ -215,7 +215,11 @@
 			
 			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
-				console.log("Start translation : "+document.getElementById("google_translate_element").innerHTML);
+				
+				var num = document.getElementById('goog-te-combo').selectedIndex;
+				var selectLang = document.getElementById('goog-te-combo').options[num].value;
+				console.log("Start translation : "+selectLang);
+				
 			}
 		 </script>
         

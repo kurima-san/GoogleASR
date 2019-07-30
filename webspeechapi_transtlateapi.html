@@ -213,7 +213,8 @@
 				//console.log("Translated : " + currentValue);
 			}
 			
-			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
+			//document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
+			document.addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
 				var translatedForm = document.getElementsByClassName('translated-ltr');
 				console.log(translatedForm.length);

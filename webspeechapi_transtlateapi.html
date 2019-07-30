@@ -47,15 +47,6 @@
 							</select>
 						</div>
 					</div>
-					
-					<div id="google_translate_element"></div> 
-					<script type="text/javascript"> 
-						function googleTranslateElementInit() { 
-							new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element'); 
-						} 
-					</script> 
-					<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
-					
 				</div>
 				<div class="recognition">
 					<div class="row">
@@ -67,10 +58,21 @@
 						<div class="col-sm-4">
 							<button id="recognitionStartButton" class="btn btn-default" type=
 							"button" value="recognitionStart" onclick=
-							"asr_start_function();">話してみる</button> <button id=
+							"asr_start_function();">話してみる</button>
+							<button id=
 							"recognitionStopButton" class="btn btn-default" type="button"
 							value="recognitionStop" onclick=
 							"asr_stop_function();">話すの中断 </button>
+							
+							
+							<div id="google_translate_element"></div> 
+							<script type="text/javascript"> 
+								function googleTranslateElementInit() { 
+									new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element'); 
+								} 
+							</script> 
+							<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
+							
 						</div>
 					</div>
 				</div>

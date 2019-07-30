@@ -58,6 +58,8 @@
 							-->
 							<fieldset>
 							<legend>認識結果1.3</legend>
+							<p><div id="result type"></div></p>
+							<p><div id="confidence"></div></p>
 							<p><div id="recognitionText"></div></p>
 							</fieldset>
 							
@@ -137,7 +139,9 @@
 										{
 												var confidence = results[i][0].confidence;
 												console.log( "result:"+results[i][0].transcript + "\nconfidence:" + confidence);
-												document.getElementById('recognitionText').innerHTML = "[final]."+"<br>" + results[i][0].transcript+".<br>"+"(confidence:"+confidence+")";
+												document.getElementById('result type').innerHTML = "[final]";
+												document.getElementById('confidence').innerHTML = confidence;
+												document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
 												document.getElementById('recognitionText').classList.remove('isNotFinal');
 												if(flag_start)asr_start_function();
 												
@@ -145,7 +149,9 @@
 										else
 										{
 												console.log( "interimresult:"+results[i][0].transcript);
-												document.getElementById('recognitionText').innerHTML = "[interim]"+".<br>" + results[i][0].transcript;
+												document.getElementById('result type').innerHTML = "[interim]";
+												document.getElementById('confidence').innerHTML = "-1";
+												document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
 												document.getElementById('recognitionText').classList.add('isNotFinal');
 												flag_speech = 1;
 										}

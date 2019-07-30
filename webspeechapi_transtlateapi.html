@@ -140,20 +140,21 @@
 					recognition.onresult = function(event) {
 						var results = event.results;
 						
+						//check transtation flag
 						var translatedForm = document.getElementsByClassName('translated-ltr');
-				console.log(translatedForm.length);
-				if(translatedForm.length == 0){
-					isTranslating = false;
-				} else {
-					isTranslating = true;
-				}
+						console.log(translatedForm.length);
+						if(translatedForm.length == 0){
+							isTranslating = false;
+						} else {
+							isTranslating = true;
+						}
 						
 						for (var i = event.resultIndex; i < results.length; i++) {
 								if (results[i].isFinal)
 								{
 									rawText = results[i][0].transcript;
 									confidenceLevel = results[i][0].confidence;
-									console.log( "result:"+rawText + "\nconfidence:" + confidenceLevel);
+									if(!isTranslating)console.log( "result:"+rawText + "\nconfidence:" + confidenceLevel);
 									document.getElementById('result type').innerHTML = "[final]";
 									document.getElementById('confidence').innerHTML = confidence;
 									document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
@@ -166,7 +167,7 @@
 									rawText = results[i][0].transcript;
 									confidenceLevel = -1;
 									
-									console.log( "interimresult:"+rawText);
+									if(!isTranslating)console.log( "interimresult:"+rawText);
 									document.getElementById('result type').innerHTML = "[interim]";
 									document.getElementById('confidence').innerHTML = "-1";
 									document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
@@ -214,9 +215,16 @@
 					//
 				} else {
 					if(currentValue.indexOf(rawText) != -1){
-						console.log("Translating : " + currentValue);
+						//console.log("Translating : " + currentValue);
 					} else {
-						console.log("Translated : " + currentValue);
+						//console.log("Translated : " + currentValue);
+						if(isTranslating){
+							if(confidenceLevel < 0){
+								console.log( "interimresult:"+currentValue);
+							} else {
+								console.log( "result:"+currentValue + "\nconfidence:" + confidenceLevel);
+							}
+						}
 					}
 				}
 				//console.log("Translated : " + currentValue);

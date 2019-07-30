@@ -217,7 +217,7 @@
 			function translationStartCallback() {
 				
 				var selectItems = document.getElementById(':0.targetLanguage').getElementsByClassName('goog-te-combo');
-				console.log(selectItems);
+				console.log(selectItems[0]);
 				var num = selectItems[0].selectedIndex;
 				if(num > 0){
 					var selectLang = selectItems[0].options[num].value;

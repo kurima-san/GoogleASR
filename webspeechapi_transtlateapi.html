@@ -201,7 +201,6 @@
 				// This function needs to be called when Google translates this web page.
 				var currentHTML = document.getElementById("recognitionText").innerHTML;
 				var currentValue = document.getElementById("recognitionText").innerText;
-				console.log("Start translation : "+document.getElementById("google_translate_element").innerHTML);
 				if(currentValue == ""){
 					//
 				} else {
@@ -214,7 +213,7 @@
 				//console.log("Translated : " + currentValue);
 			}
 			
-			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationResultCallback, false);
+			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
 				console.log("Start translation : "+document.getElementById("google_translate_element").innerHTML);
 			}

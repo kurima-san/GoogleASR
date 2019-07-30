@@ -156,7 +156,7 @@
 									confidenceLevel = results[i][0].confidence;
 									if(!isTranslating)console.log( "result:"+rawText + "\nconfidence:" + confidenceLevel);
 									document.getElementById('result type').innerHTML = "[final]";
-									document.getElementById('confidence').innerHTML = confidence;
+									document.getElementById('confidence').innerHTML = confidenceLevel;
 									document.getElementById('recognitionText').innerHTML = results[i][0].transcript;
 									document.getElementById('recognitionText').classList.remove('isNotFinal');
 									if(flag_start)asr_start_function();

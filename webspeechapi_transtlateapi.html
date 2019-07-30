@@ -181,5 +181,27 @@
 				
 		</script>
 		
+		
+		<script type="text/javascript">
+
+	            var origValue = document.getElementById("recognitionText").innerHTML;
+
+	            document.getElementById("recognitionText").addEventListener("DOMSubtreeModified", translationCallback, false);
+
+	            function translationCallback() {
+	                // This function needs to be called when Google translates this web page.
+
+	                var currentValue = document.getElementById("recognitionText").innerHTML;
+
+	                if (currentValue && currentValue.indexOf(origValue) < 0) {
+	                    origValue = currentValue;
+	                    alert("There is a disturbance in the force: " + currentValue);
+	                }
+	            }
+	        </script>
+        
+        
+        
+        
 	</body>
 </html>

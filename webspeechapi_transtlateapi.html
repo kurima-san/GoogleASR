@@ -216,9 +216,9 @@
 			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
 				
-				var num = document.getElementsByName('goog-te-combo')[0].selectedIndex;
+				var num = document.getElementsByClassName('goog-te-combo')[0].selectedIndex;
 				if(num > 0){
-					var selectLang = document.getElementsByName('goog-te-combo')[0].options[num].value;
+					var selectLang = document.getElementsByClassName('goog-te-combo')[0].options[num].value;
 					console.log("Start translation : "+selectLang);
 				} else {
 					console.log("not start translation");

@@ -57,7 +57,7 @@
 							"ここに音声認識結果が表示されます" readonly></textarea>
 							-->
 							<fieldset>
-							<legend>認識結果1.1</legend>
+							<legend>認識結果1.2</legend>
 							<p><div id="recognitionText"></div></p>
 							</fieldset>
 							
@@ -192,11 +192,8 @@
 	                // This function needs to be called when Google translates this web page.
 
 	                var currentValue = document.getElementById("recognitionText").innerHTML;
-
-	                if (currentValue && currentValue.indexOf(origValue) < 0) {
-	                    origValue = currentValue;
-	                    console.log("There is a disturbance in the force: " + currentValue);
-	                }
+		 console.log("There is a disturbance in the force: " + currentValue);
+	                
 	            }
 	        </script>
         

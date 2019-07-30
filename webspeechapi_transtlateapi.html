@@ -199,12 +199,16 @@
 				// This function needs to be called when Google translates this web page.
 				var currentHTML = document.getElementById("recognitionText").innerHTML;
 				var currentValue = document.getElementById("recognitionText").innerText;
-				if(currentHTML.indexOf('/font') != -1){
+				if(currentValue == ""){
 					//
 				} else {
-					
+					if(currentValue.indexOf(rawText) != -1){
+						console.log("Translated : " + currentValue);
+					} else {
+						console.log("Translating : " + currentValue);
+					}
 				}
-				console.log("Translated : " + currentValue);
+				//console.log("Translated : " + currentValue);
 			}
 		 </script>
         

@@ -139,6 +139,15 @@
 
 					recognition.onresult = function(event) {
 						var results = event.results;
+						
+						var translatedForm = document.getElementsByClassName('translated-ltr');
+				console.log(translatedForm.length);
+				if(translatedForm.length == 0){
+					isTranslating = false;
+				} else {
+					isTranslating = true;
+				}
+						
 						for (var i = event.resultIndex; i < results.length; i++) {
 								if (results[i].isFinal)
 								{
@@ -213,33 +222,19 @@
 				//console.log("Translated : " + currentValue);
 			}
 			
+			/*
 			//document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			document.addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
 				var translatedForm = document.getElementsByClassName('translated-ltr');
-				console.log(translatedForm.length);
-				/*
-				var skipTranslateFrame = document.getElementById('goog-gt-tt');
-				if(skipTranslateFrame != null){
-					console.log("Start translation");
+				//console.log(translatedForm.length);
+				if(translatedForm.length == 0){
+					isTranslating = false;
 				} else {
-					console.log("Stop translation");
+					isTranslating = true;
 				}
-				*/
-				/*
-				var selectItems = document.getElementById(':0.targetLanguage').getElementsByClassName('goog-te-combo');
-				if(selectItems.length > 0){
-					var num = selectItems[0].selectedIndex;
-					console.log(num + ":"+selectItems[0]);
-					if(num > 0){
-						var selectLang = selectItems[0].options[num].value;
-						console.log("Start translation : "+selectLang);
-					} else {
-						console.log("not start translation");
-					}
-				}
-				*/
 			}
+			*/
 		 </script>
         
         

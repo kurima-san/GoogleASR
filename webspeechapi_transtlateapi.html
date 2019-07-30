@@ -104,6 +104,8 @@
 			var rawText = "";
 			var confidenceLevel = -1;
 			
+			var isTranslating = false;
+			
 			function asr_start_function() {
 					flag_start = true;
 					window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
@@ -193,9 +195,9 @@
 			}
 			
 	           	
-			document.getElementById("recognitionText").addEventListener("DOMSubtreeModified", translationCallback, false);
+			document.getElementById("recognitionText").addEventListener("DOMSubtreeModified", translationResultCallback, false);
 			//document.getElementById("recognitionText").addEventListener("change", translationCallback, false);
-			function translationCallback() {
+			function translationResultCallback() {
 				// This function needs to be called when Google translates this web page.
 				var currentHTML = document.getElementById("recognitionText").innerHTML;
 				var currentValue = document.getElementById("recognitionText").innerText;
@@ -203,12 +205,17 @@
 					//
 				} else {
 					if(currentValue.indexOf(rawText) != -1){
-						console.log("Translated : " + currentValue);
-					} else {
 						console.log("Translating : " + currentValue);
+					} else {
+						console.log("Translated : " + currentValue);
 					}
 				}
 				//console.log("Translated : " + currentValue);
+			}
+			
+			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationResultCallback, false);
+			function translationStartCallback() {
+				console.log("Start translation");
 			}
 		 </script>
         

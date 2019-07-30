@@ -137,7 +137,7 @@
 										{
 												var confidence = results[i][0].confidence;
 												console.log( "result:"+results[i][0].transcript + "\nconfidence:" + confidence);
-												document.getElementById('recognitionText').innerHTML = "[final]"+"<br>" + results[i][0].transcript+"<br>"+"(confidence:"+confidence+")";
+												document.getElementById('recognitionText').innerHTML = "[final]."+"<br>" + results[i][0].transcript+".<br>"+"(confidence:"+confidence+")";
 												document.getElementById('recognitionText').classList.remove('isNotFinal');
 												if(flag_start)asr_start_function();
 												
@@ -145,7 +145,7 @@
 										else
 										{
 												console.log( "interimresult:"+results[i][0].transcript);
-												document.getElementById('recognitionText').innerHTML = "[interim]"+"<br>" + results[i][0].transcript;
+												document.getElementById('recognitionText').innerHTML = "[interim]"+".<br>" + results[i][0].transcript;
 												document.getElementById('recognitionText').classList.add('isNotFinal');
 												flag_speech = 1;
 										}
@@ -187,12 +187,12 @@
 			
 	           	 var origValue = document.getElementById("recognitionText").innerHTML;
 			
-			//document.getElementById("recognitionText").addEventListener("DOMSubtreeModified", translationCallback, false);
-			document.getElementById("recognitionText").addEventListener("change", translationCallback, false);
+			document.getElementById("recognitionText").addEventListener("DOMSubtreeModified", translationCallback, false);
+			//document.getElementById("recognitionText").addEventListener("change", translationCallback, false);
 			function translationCallback() {
 				// This function needs to be called when Google translates this web page.
 				var currentValue = document.getElementById("recognitionText").innerHTML;
-				console.log(currentValue);
+				console.log("Translated : " + currentValue);
 			}
 		 </script>
         

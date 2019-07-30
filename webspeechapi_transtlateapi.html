@@ -216,11 +216,11 @@
 			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationStartCallback, false);
 			function translationStartCallback() {
 				
-				var selecItems = document.getElementById(':0.targetLanguage').getElementsByClassName('goog-te-combo');
+				var selectItems = document.getElementById(':0.targetLanguage').getElementsByClassName('goog-te-combo');
 				console.log(selectItems);
-				var num = selecItems[0].selectedIndex;
+				var num = selectItems[0].selectedIndex;
 				if(num > 0){
-					var selectLang = selecItems[0].options[num].value;
+					var selectLang = selectItems[0].options[num].value;
 					console.log("Start translation : "+selectLang);
 				} else {
 					console.log("not start translation");

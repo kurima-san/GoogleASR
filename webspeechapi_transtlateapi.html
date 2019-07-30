@@ -78,7 +78,6 @@
 							<script type="text/javascript"> 
 								function googleTranslateElementInit() { 
 									new google.translate.TranslateElement({pageLanguage: 'ja'}, 'google_translate_element');
-									console.log("hogehoge");
 								} 
 							</script> 
 							<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
@@ -202,6 +201,7 @@
 				// This function needs to be called when Google translates this web page.
 				var currentHTML = document.getElementById("recognitionText").innerHTML;
 				var currentValue = document.getElementById("recognitionText").innerText;
+				console.log("Start translation : "+document.getElementById("google_translate_element").innerHTML);
 				if(currentValue == ""){
 					//
 				} else {
@@ -216,7 +216,7 @@
 			
 			document.getElementById("google_translate_element").addEventListener("DOMSubtreeModified", translationResultCallback, false);
 			function translationStartCallback() {
-				console.log("Start translation");
+				console.log("Start translation : "+document.getElementById("google_translate_element").innerHTML);
 			}
 		 </script>
         

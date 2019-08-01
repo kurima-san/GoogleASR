@@ -15,11 +15,10 @@ var log = (function() {
 })();
 
 chrome.runtime.getBackgroundPage(function(bgPage) {
-
 	bgPage.log.addListener(function(str) {
 		log.output(str);
 	});
-
+	
 	// current ip address of PC
 	bgPage.TcpServer.getNetworkAddresses(function(list) {
 		var addr = document.querySelector("#addresses");
@@ -31,7 +30,7 @@ chrome.runtime.getBackgroundPage(function(bgPage) {
 				addr.appendChild(option);
 			}
 		}
-		;
+		document.getElementById('serverStart').click();
 	});
 
 	function setConnectedState(addr, port) {
@@ -59,5 +58,4 @@ chrome.runtime.getBackgroundPage(function(bgPage) {
 	if (currentState.isConnected) {
 		setConnectedState(currentState.addr, currentState.port);
 	}
-
 })

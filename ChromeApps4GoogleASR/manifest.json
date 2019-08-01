@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Google Speech Recognition Server",
-  "version": "4.0",
+  "version": "4.1",
   "minimum_chrome_version": "33.0.1715.0",
   "permissions": ["webview", "system.network","audioCapture","videoCapture"],
   "app": {

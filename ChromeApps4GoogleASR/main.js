@@ -7,7 +7,7 @@ var wv;
  * @see https://developer.chrome.com/apps/app_runtime
  * @see https://developer.chrome.com/apps/app_window
  */
-chrome.app.runtime.onLaunched.addListener(function() {
+chrome.app.runtime.onLaunched.addListener(function(){
 	if (commandWindow && !commandWindow.contentWindow.closed) {
 		commandWindow.focus();
 	} else {
@@ -37,7 +37,6 @@ chrome.app.runtime.onLaunched.addListener(function() {
 						}
 					}
 				});
-
 				commandWindow = w;
 			}
 		});

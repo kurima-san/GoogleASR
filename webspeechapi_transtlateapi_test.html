@@ -215,7 +215,10 @@
 				if(currentValue == ""){
 					//
 				} else {
-					if(rawText.indexOf(currentValue) !== -1 || currentValue == rawText){
+					//error example
+					//webspeechapi_transtlateapi_test.html:214  My name is -> <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> My name is</font></font> My name is = My name is My name is
+					//webspeechapi_transtlateapi_test.html:224 interimresult:My name is My name is
+					if(rawText.indexOf(currentValue) !== -1 || currentValue.indexOf(rawText) !== -1 || currentValue == rawText){
 						//console.log("Translating : " + currentValue);
 					} else {
 						//console.log("Translated : " + currentValue);

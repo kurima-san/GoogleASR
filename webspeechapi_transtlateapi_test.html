@@ -215,7 +215,7 @@
 				if(currentValue == ""){
 					//
 				} else {
-					if(currentValue.indexOf(rawText) != -1){
+					if(currentValue.indexOf(rawText) !== -1 || currentValue == rawText){
 						//console.log("Translating : " + currentValue);
 					} else {
 						//console.log("Translated : " + currentValue);

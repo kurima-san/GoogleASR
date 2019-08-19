@@ -57,7 +57,7 @@
 							"ここに音声認識結果が表示されます" readonly></textarea>
 							-->
 							<fieldset>
-							<legend>認識結果2.1</legend>
+							<legend>認識結果2.2</legend>
 							<p><div id="result type"></div></p>
 							<p><div id="confidence"></div></p>
 							<p><div id="recognitionText"></div></p>
@@ -77,7 +77,7 @@
 							<div id="google_translate_element"></div> 
 							<script type="text/javascript"> 
 								function googleTranslateElementInit() { 
-									new google.translate.TranslateElement({pageLanguage: 'ja'}, 'google_translate_element');
+									new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
 								} 
 							</script> 
 							<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
@@ -210,8 +210,8 @@
 			function translationResultCallback() {
 				// This function needs to be called when Google translates this web page.
 				var currentHTML = document.getElementById("recognitionText").innerHTML;
-				console.log(currentValue+" -> "+currentHTML);
 				var currentValue = document.getElementById("recognitionText").innerText;
+				console.log(rawText+" -> "+currentHTML);
 				if(currentValue == ""){
 					//
 				} else {

@@ -210,7 +210,7 @@
 			function translationResultCallback() {
 				// This function needs to be called when Google translates this web page.
 				var currentHTML = document.getElementById("recognitionText").innerHTML;
-				console.log(currentHTML);
+				console.log(currentValue+" -> "+currentHTML);
 				var currentValue = document.getElementById("recognitionText").innerText;
 				if(currentValue == ""){
 					//

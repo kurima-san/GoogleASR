@@ -227,11 +227,10 @@
 				if(currentHTML.indexOf("<font") !== -1){
 					var startIndexOf = currentHTML.indexOf(">");
 					var endIndexOf = currentHTML.indexOf("</");
-					if(startIndexOf.length >= 2){
-						var startIndex = startIndexOf[1]+1;
-						var endIndex = endIndexOf[0] - 1;
-						currentTranslated = currentHTML.substring(startIndex, endIndex);
-					}
+					var startIndex = startIndexOf[1]+1;
+					var endIndex = endIndexOf[0] - 1;
+					console.log(startIndex +", "+endIndex);
+					currentTranslated = currentHTML.substring(startIndex, endIndex);
 				}
 				
 				console.log(rawText+" -> "+currentHTML + " = "+currentValue+ " = "+currentTranslated);

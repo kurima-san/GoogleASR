@@ -229,8 +229,10 @@
 					var endIndexOf = currentHTML.indexOf("</");
 					var startIndex = startIndexOf[1]+1;
 					var endIndex = endIndexOf[0] - 1;
-					console.log(startIndex +", "+endIndex);
-					currentTranslated = currentHTML.substring(startIndex, endIndex);
+					console.log(startIndexOf +", "+endIndexOf);
+					if(startIndex <= endIndex){
+						currentTranslated = currentHTML.substring(startIndex, endIndex);
+					}
 				}
 				
 				console.log(rawText+" -> "+currentHTML + " = "+currentValue+ " = "+currentTranslated);

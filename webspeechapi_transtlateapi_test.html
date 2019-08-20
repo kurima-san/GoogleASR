@@ -228,8 +228,8 @@
 					var startIndexOf = currentHTML.indexOf(">");
 					var endIndexOf = currentHTML.indexOf("</");
 					if(startIndexOf.length >= 2){
-						int startIndex = startIndexOf[1]+1;
-						int endIndex = endIndexOf[0] - 1;
+						var startIndex = startIndexOf[1]+1;
+						var endIndex = endIndexOf[0] - 1;
 						currentTranslated = currentHTML.substring(startIndex, endIndex);
 					}
 				}

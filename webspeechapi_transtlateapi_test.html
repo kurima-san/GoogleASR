@@ -229,7 +229,8 @@
 				var foundText = false;
 				var startIndex = 0;
 				while(searchedHTML.indexOf(startString) != -1){
-					startIndex = searchedHTML.indexOf(startString)+startString.length;
+					//startIndex = searchedHTML.indexOf(startString)+startString.length;
+					startIndex = searchedHTML.indexOf(startString);
 					searchedHTML = searchedHTML.substring(startString.length);
 					foundText = true;
 				}

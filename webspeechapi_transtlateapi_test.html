@@ -230,8 +230,10 @@
 				var startIndex = 0;
 				while(searchedHTML.indexOf(startString) != -1){
 					//startIndex = searchedHTML.indexOf(startString)+startString.length;
-					startIndex += searchedHTML.indexOf(startString);
-					searchedHTML = searchedHTML.substring(startIndex);
+					var tmpIndex= searchedHTML.indexOf(startString)+startString.length;
+					console.log(tmpIndex +" ++ "+startIndex);
+					startIndex += tmpIndex;
+					searchedHTML = searchedHTML.substring(tmpIndex);
 					foundText = true;
 				}
 				if(foundText){

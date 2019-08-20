@@ -211,6 +211,20 @@
 				// This function needs to be called when Google translates this web page.
 				var currentHTML = document.getElementById("recognitionText").innerHTML;
 				var currentValue = document.getElementById("recognitionText").innerText;
+				
+				var currentTranslated = currentValue;
+				
+				var parser = new DOMParser();
+				var dom = parser.parseFromString(currentHTML, "text/xml");
+				var fonts = dom.getElementsByTagName("font");
+				for (var i=0; i<fonts.length; i++){
+					console.log("font = "+fonts[i].getElementsByTagName("font")[0].textContent);
+				}
+				
+				if(currentHTML.indexOf("<font") !== -1){
+					
+				}
+				
 				console.log(rawText+" -> "+currentHTML + " = "+currentValue);
 				if(currentValue == ""){
 					//

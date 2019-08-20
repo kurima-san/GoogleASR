@@ -213,7 +213,7 @@
 				var currentValue = document.getElementById("recognitionText").innerText;
 				
 				var currentTranslated = currentValue;
-				
+				/*
 				var parser = new DOMParser();
 				var dom = parser.parseFromString(currentHTML, "text/xml");
 				var fonts = dom.getElementsByTagName("font");
@@ -222,12 +222,19 @@
 					console.log("font = "+ fonts[i].innerHTML+", "+fonts[i].textContent);
 
 				}
+				*/
 				
 				if(currentHTML.indexOf("<font") !== -1){
-					
+					var startIndexOf = currentHTML.indexOf(">");
+					var endIndexOf = currentHTML.indexOf("</");
+					if(startIndexOf.length >= 2){
+						int startIndex = startIndexOf[1]+1;
+						int endIndex = endIndexOf[0] - 1;
+						currentTranslated = currentHTML.substring(startIndex, endIndex);
+					}
 				}
 				
-				console.log(rawText+" -> "+currentHTML + " = "+currentValue);
+				console.log(rawText+" -> "+currentHTML + " = "+currentValue+ " = "+currentTranslated);
 				if(currentValue == ""){
 					//
 				} else {

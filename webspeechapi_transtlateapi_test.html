@@ -223,18 +223,37 @@
 
 				}
 				*/
-				
-				if(currentHTML.indexOf("<font") !== -1){
-					var startIndexOf = currentHTML.indexOf(">");
-					var endIndexOf = currentHTML.indexOf("</");
-					var startIndex = startIndexOf[1]+1;
-					var endIndex = endIndexOf[0] - 1;
-					console.log(startIndexOf +", "+endIndexOf);
+				var startString = "<font style=\"vertical-align: inherit;\">";
+				var endString = "</font>";
+				var searchedHTML = currentHTML;
+				var foundText = false;
+				var startIndex = 0;
+				while(searchedHTML.indexOf(startString) != -1){
+					startIndex = searchedHTML.indexOf(startString)+startString.length;
+					searchedHTML = searchedHTML.substring(startString.length);
+					foundText = true;
+				}
+				if(foundText){
+					var endIndexOf = currentHTML.indexOf(endString);
+					var endIndex = endIndexOf - 1;
+					console.log(startIndex +" => "+endIndex);
 					if(startIndex <= endIndex){
 						currentTranslated = currentHTML.substring(startIndex, endIndex);
 					}
 				}
 				
+				/*
+				if(searchedHTML.indexOf(startString) != -1){
+					var startIndexOf = currentHTML.indexOf(startString);
+					var endIndexOf = currentHTML.indexOf(endString);
+					var startIndex = startIndexOf[1]+startString.length;
+					var endIndex = endIndexOf[0] - 1;
+					console.log(startIndexOf +" => "+endIndexOf);
+					if(startIndex <= endIndex){
+						currentTranslated = currentHTML.substring(startIndex, endIndex);
+					}
+				}
+				*/
 				console.log(rawText+" -> "+currentHTML + " = "+currentValue+ " = "+currentTranslated);
 				if(currentValue == ""){
 					//

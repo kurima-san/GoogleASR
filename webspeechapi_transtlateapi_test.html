@@ -218,7 +218,7 @@
 				var dom = parser.parseFromString(currentHTML, "text/xml");
 				var fonts = dom.getElementsByTagName("font");
 				for (var i=0; i<fonts.length; i++){
-					console.log("font = "+fonts[i].getElementsByTagName("font")[0].textContent);
+					console.log("font = "+fonts[i].getElementsByTagName("font")[0].innerText);
 				}
 				
 				if(currentHTML.indexOf("<font") !== -1){
